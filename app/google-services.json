@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "480622553568",
+    "firebase_url": "https://auto-parts-e92a8.firebaseio.com",
+    "project_id": "auto-parts-e92a8",
+    "storage_bucket": "auto-parts-e92a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480622553568:android:652f0ef3d3d18b6d",
+        "android_client_info": {
+          "package_name": "com.mobapplic.autoparts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480622553568-di04lbbs0g2cuk1ubtmgadp1f54n7bga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mobapplic.autoparts",
+            "certificate_hash": "02993A4047706E85FD86F94BA6162D29477BC015"
+          }
+        },
+        {
+          "client_id": "480622553568-llnguc87h6r5o0a524tta9qo19o6r28c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0sscuPbjZRMDGAcUX5lpMMVWxoIOl7wc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480622553568-llnguc87h6r5o0a524tta9qo19o6r28c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

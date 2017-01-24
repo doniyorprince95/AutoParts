@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Autoparts</string>
+
+    <!-- Login -->
+    <string name="user_name">username</string>
+    <string name="password">password</string>
+    <string name="log_in">Log In</string>
+    <string name="username_error">Username cannot be empty</string>
+    <string name="password_error">Password cannot be empty</string>
+
+    <!-- Address -->
+    <string name="address_title">Address</string>
+    <string name="address">Delivery address</string>
+    <string name="add_address">Add address</string>
+    <string name="address_zip_code">Zip Code</string>
+    <string name="address_city">City</string>
+    <string name="address_street">Street</string>
+    <string name="address_name">Address name</string>
+    <string name="address_save">Sace</string>
+
+    <!-- History -->
+    <string name="history_title">History order</string>
+    <string name="history_date">Date</string>
+    <string name="history_status">Status</string>
+    <string name="history_order">Order</string>
+
+    <!-- Car Info -->
+    <string name="auto_info_title">Auto Information</string>
+    <string name="auto_info_add">Add auto</string>
+    <string name="auto_info_mark">Mark</string>
+</resources>
