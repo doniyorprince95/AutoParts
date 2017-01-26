@@ -1,4 +1,4 @@
-package com.mobapplic.autoparts.view.ui.activity.Login;
+package com.mobapplic.autoparts.view.ui.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,16 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mobapplic.autoparts.MainActivity;
+import com.mobapplic.autoparts.R;
 import com.mobapplic.autoparts.presenter.login.LoginPresenter;
 import com.mobapplic.autoparts.presenter.login.LoginPresenterImpl;
-import com.mobapplic.autoparts.R;
+import com.mobapplic.autoparts.view.ui.activity.signup.SignUpActivity;
 import com.mobapplic.autoparts.view.views.login.LoginView;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginView, View.OnClickListener {
 
+    private TextView signUp;
     private ProgressBar progressBar;
     private EditText username;
     private EditText password;
@@ -27,9 +30,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         progressBar = (ProgressBar) findViewById(R.id.progress);
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        findViewById(R.id.button).setOnClickListener(this);
+        username = (EditText) findViewById(R.id.inputLogin);
+        password = (EditText) findViewById(R.id.inputPassword);
+        signUp = (TextView) findViewById(R.id.signUp);
+        signUp.setOnClickListener(this);
+        findViewById(R.id.btn_login).setOnClickListener(this);
 
         presenter = new LoginPresenterImpl();
     }
@@ -72,13 +77,28 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
     }
 
     @Override
+    public void setPasswordLengthError() {
+        password.setError(getString(R.string.password_length_error));
+    }
+
+    @Override
     public void navigateToHome() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
     @Override
+    public void setError(String errorMsg) {
+
+    }
+
+    @Override
     public void onClick(View v) {
-        presenter.validateCredentials(username.getText().toString(), password.getText().toString());
+        if (v.getId() == R.id.btn_login) {
+            presenter.validateCredentials(username.getText().toString(), password.getText().toString());
+        } else {
+            startActivity(new Intent(this, SignUpActivity.class));
+            finish();
+        }
     }
 }

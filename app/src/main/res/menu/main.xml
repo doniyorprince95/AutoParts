@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_main"
+            android:icon="@drawable/ic_home"
+            android:title="@string/nav_home"/>
+        <item
+            android:id="@+id/menu_chat"
+            android:icon="@drawable/ic_chat"
+            android:title="@string/nav_chat"/>
+        <item
+            android:id="@+id/menu_car"
+            android:icon="@drawable/ic_car"
+            android:title="@string/nav_car"/>
+        <item
+            android:id="@+id/menu_history"
+            android:icon="@drawable/ic_history"
+            android:title="@string/nav_history"/>
+        <item
+            android:id="@+id/menu_settings_apps"
+            android:icon="@drawable/ic_settings_applications"
+            android:title="@string/nav_settings_apps"/>
+        <item
+            android:id="@+id/menu_logout"
+            android:icon="@drawable/ic_exit_to_app"
+            android:title="@string/nav_exit_to_app"/>
+    </group>
+</menu>
