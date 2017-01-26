@@ -5,8 +5,10 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.mobapplic.autoparts.view.views.login.LoginView;
+import com.mobapplic.autoparts.App;
+import com.mobapplic.autoparts.R;
 import com.mobapplic.autoparts.model.interactor.login.LoginInteractor;
+import com.mobapplic.autoparts.view.views.login.LoginView;
 
 import static android.content.ContentValues.TAG;
 
@@ -18,17 +20,39 @@ public class LoginPresenterImpl implements LoginPresenter {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     public LoginPresenterImpl() {
-        this.loginInteractor = new LoginInteractor();
         mAuth = FirebaseAuth.getInstance();
+        this.loginInteractor = new LoginInteractor(mAuth);
     }
 
     @Override
-    public void validateCredentials(String username, String password) {
+    public void validateCredentials(final String username, final String password) {
         if (loginView != null) {
             loginView.showProgress();
         }
 
-        loginInteractor.login(username, password, mAuthListener);
+        loginInteractor.login(username, password, new OnLoginListener() {
+            @Override
+            public void onSuccess() {
+                loginView.hideProgress();
+                loginView.navigateToHome();
+            }
+
+            @Override
+            public void onError() {
+                loginView.hideProgress();
+                if (username != null && username.isEmpty()) {
+                    loginView.setUsernameError();
+                }
+                if (password != null && password.isEmpty()) {
+                    loginView.setPasswordError();
+                }
+                if (password != null && password.length() < 6) {
+                    loginView.setPasswordError();
+                } else {
+                    loginView.setError(App.getContext().getString(R.string.login_error));
+                }
+            }
+        });
     }
 
     @Override
@@ -57,4 +81,6 @@ public class LoginPresenterImpl implements LoginPresenter {
         };
         mAuth.addAuthStateListener(mAuthListener);
     }
+
+
 }

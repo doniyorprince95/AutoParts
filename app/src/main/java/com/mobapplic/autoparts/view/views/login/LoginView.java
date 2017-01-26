@@ -9,6 +9,9 @@ public interface LoginView {
     void setUsernameError();
 
     void setPasswordError();
+    void setPasswordLengthError();
 
     void navigateToHome();
+
+    void setError(String errorMsg);
 }

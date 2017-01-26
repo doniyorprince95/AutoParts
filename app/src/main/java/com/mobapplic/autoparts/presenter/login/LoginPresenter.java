@@ -9,4 +9,9 @@ public interface LoginPresenter {
     void unBindView();
 
     void bindView(LoginView loginView);
+
+    interface OnLoginListener {
+        void onSuccess();
+        void onError();
+    }
 }
