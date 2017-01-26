@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.mobapplic.autoparts.MainActivity;
+import com.mobapplic.autoparts.view.ui.activity.main.MainActivity;
 import com.mobapplic.autoparts.R;
 import com.mobapplic.autoparts.presenter.login.LoginPresenter;
 import com.mobapplic.autoparts.presenter.login.LoginPresenterImpl;
@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
     private ProgressBar progressBar;
     private EditText username;
     private EditText password;
-    private LoginPresenter presenter;
+    private LoginPresenter mLoginPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,24 +36,19 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
         signUp.setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
 
-        presenter = new LoginPresenterImpl();
+        mLoginPresenter = new LoginPresenterImpl();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.bindView(this);
+        mLoginPresenter.bindView(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.unBindView();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+        mLoginPresenter.unBindView();
     }
 
     @Override
@@ -95,8 +90,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_login) {
-            presenter.validateCredentials(username.getText().toString(), password.getText().toString());
-        } else {
+            mLoginPresenter.validateCredentials(username.getText().toString(), password.getText().toString());
+        }
+        if (v.getId() == R.id.signUp) {
             startActivity(new Intent(this, SignUpActivity.class));
             finish();
         }

@@ -64,6 +64,7 @@
     <string name="authorization_password_hint">Пароль</string>
     <string name="logIn">Войти</string>
     <string name="login_signUp">SignUp</string>
+    <string name="signUp">SignUp</string>
     <string name="nav_exit_to_app">Logout</string>
     <string name="nav_settings_apps">Settings App</string>
     <string name="nav_history">History</string>

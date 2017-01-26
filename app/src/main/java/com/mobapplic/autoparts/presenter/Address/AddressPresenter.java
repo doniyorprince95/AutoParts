@@ -1,4 +1,4 @@
-package com.mobapplic.autoparts.presenter.Address;
+package com.mobapplic.autoparts.presenter.address;
 
 
 public interface AddressPresenter {

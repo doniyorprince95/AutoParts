@@ -1,4 +1,4 @@
-package com.mobapplic.autoparts.view.views.Chat;
+package com.mobapplic.autoparts.view.views.chat;
 
 
 public interface ChatView {

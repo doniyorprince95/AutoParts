@@ -1,4 +1,4 @@
-package com.mobapplic.autoparts.view.views.Address;
+package com.mobapplic.autoparts.view.views.address;
 
 
 public interface AddressView {

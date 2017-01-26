@@ -47,7 +47,7 @@ public class LoginPresenterImpl implements LoginPresenter {
                     loginView.setPasswordError();
                 }
                 if (password != null && password.length() < 6) {
-                    loginView.setPasswordError();
+                    loginView.setPasswordLengthError();
                 } else {
                     loginView.setError(App.getContext().getString(R.string.login_error));
                 }

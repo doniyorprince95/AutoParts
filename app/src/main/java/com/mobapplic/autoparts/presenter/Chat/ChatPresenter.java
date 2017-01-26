@@ -1,4 +1,4 @@
-package com.mobapplic.autoparts.presenter.Chat;
+package com.mobapplic.autoparts.presenter.chat;
 
 
 public interface ChatPresenter {
