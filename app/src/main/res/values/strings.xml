@@ -65,12 +65,14 @@
     <string name="logIn">Войти</string>
     <string name="login_signUp">SignUp</string>
     <string name="signUp">SignUp</string>
-    <string name="nav_exit_to_app">Logout</string>
-    <string name="nav_settings_apps">Settings App</string>
-    <string name="nav_history">History</string>
-    <string name="nav_home">Home</string>
-    <string name="nav_chat">Chat</string>
-    <string name="nav_car">Car Info</string>
+
+    <string name="menu_nav_home">Home</string>
+    <string name="menu_nav_chat">Chat</string>
+    <string name="menu_nav_car">Car Info</string>
+    <string name="menu_nav_history">History</string>
+    <string name="menu_nav_settings_apps">Settings App</string>
+    <string name="menu_nav_exit_to_app">Logout</string>
+
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 </resources>
