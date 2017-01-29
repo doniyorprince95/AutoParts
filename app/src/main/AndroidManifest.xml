@@ -19,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.activity.signup.SignUpActivity"/>
+        <activity android:name=".view.ui.activity.signup.SignUpActivity">
+
+        </activity>
         <activity android:name=".view.ui.activity.main.MainActivity"/>
     </application>
 
