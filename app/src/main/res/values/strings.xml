@@ -71,4 +71,6 @@
     <string name="nav_home">Home</string>
     <string name="nav_chat">Chat</string>
     <string name="nav_car">Car Info</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 </resources>
