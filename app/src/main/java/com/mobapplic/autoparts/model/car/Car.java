@@ -1,10 +1,11 @@
 package com.mobapplic.autoparts.model.car;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Car extends RealmObject {
-
-    private long mId;
+    @PrimaryKey
+    private int mId;
     private String mMark;
     private String mModel;
     private long mDate;
@@ -15,13 +16,13 @@ public class Car extends RealmObject {
     public Car() {
     }
 
-    public Car(long id, String mark, String model) {
+    public Car(int id, String mark, String model) {
         mId = id;
         mMark = mark;
         mModel = model;
     }
 
-    public Car(long id, String mark, String model, long date, float engineCapacity, CarBody body, String VIN) {
+    public Car(int id, String mark, String model, long date, float engineCapacity, CarBody body, String VIN) {
         mId = id;
         mMark = mark;
         mModel = model;
@@ -31,11 +32,11 @@ public class Car extends RealmObject {
         mVIN = VIN;
     }
 
-    public long getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         mId = id;
     }
 

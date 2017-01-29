@@ -1,10 +1,13 @@
 package com.mobapplic.autoparts.model.order;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 
 public class Order extends RealmObject {
 
+    @PrimaryKey
+    private int mId;
     private long mDateOrder;
     private String mOrder;
     private String mStatus;
@@ -12,10 +15,19 @@ public class Order extends RealmObject {
     public Order() {
     }
 
-    public Order(long dateOrder, String order, OrderStatus status) {
+    public Order(int id, long dateOrder, String order, OrderStatus status) {
+        mId = id;
         mDateOrder = dateOrder;
         mOrder = order;
         mStatus = status.toString();
+    }
+
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        mId = id;
     }
 
     public long getDateOrder() {
