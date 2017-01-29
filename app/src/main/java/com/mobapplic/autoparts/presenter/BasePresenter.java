@@ -1,6 +1,6 @@
 package com.mobapplic.autoparts.presenter;
 
-public interface BasePresenter {
-//    void bindView(T);
+public interface BasePresenter<T> {
+    void bindView(T view);
     void unBindView();
 }

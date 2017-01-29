@@ -4,12 +4,8 @@ package com.mobapplic.autoparts.presenter.login;
 import com.mobapplic.autoparts.presenter.BasePresenter;
 import com.mobapplic.autoparts.view.views.login.LoginView;
 
-public interface LoginPresenter extends BasePresenter {
+public interface LoginPresenter extends BasePresenter<LoginView> {
     void validateCredentials(String username, String password);
-
-//    void unBindView();
-
-    void bindView(LoginView loginView);
 
     interface OnLoginListener {
         void onSuccess();
