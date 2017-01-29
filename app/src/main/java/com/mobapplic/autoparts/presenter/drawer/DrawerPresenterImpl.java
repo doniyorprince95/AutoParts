@@ -39,6 +39,6 @@ public class DrawerPresenterImpl implements DrawerPresenter, DrawerPresenter.Dra
 
     @Override
     public void openSettingsApp() {
-
+        drawerView.showSettingsApp();
     }
 }

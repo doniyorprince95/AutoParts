@@ -6,8 +6,8 @@ import android.view.MenuItem;
 
 import com.mobapplic.autoparts.R;
 import com.mobapplic.autoparts.presenter.drawer.DrawerPresenter;
-import com.mobapplic.autoparts.view.ui.fragment.CarInfoFragment;
-import com.mobapplic.autoparts.view.ui.fragment.ChatFragment;
+import com.mobapplic.autoparts.view.ui.fragment.car.CarInfoFragment;
+import com.mobapplic.autoparts.view.ui.fragment.chat.ChatFragment;
 
 public class DrawerInteractorImpl implements DrawerInteractor {
 

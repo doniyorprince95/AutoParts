@@ -72,7 +72,7 @@ public class SignUpPresenterImpl implements SignUpPresenter {
                     mSignUpView.setUsernameError();
                 }
                 if (password != null && password.isEmpty()) {
-                    mSignUpView.setUsernameError();
+                    mSignUpView.setPasswordError();
                 }
                 if (password != null && password.length() < 6) {
                     mSignUpView.setPasswordLengthError();
