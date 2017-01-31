@@ -43,7 +43,7 @@ public class SignUpPresenterImpl implements SignUpPresenter {
     }
 
     @Override
-    public void unbindView() {
+    public void unBindView() {
         mSignUpView = null;
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);

@@ -16,12 +16,16 @@ import com.mobapplic.autoparts.presenter.signup.SignUpPresenterImpl;
 import com.mobapplic.autoparts.view.ui.activity.main.MainActivity;
 import com.mobapplic.autoparts.view.views.signUp.SignUpView;
 
+import io.realm.Realm;
+
 public class SignUpActivity extends AppCompatActivity implements SignUpView, View.OnClickListener {
 
     private ProgressBar progressBar;
     private EditText username;
     private EditText password;
     private SignUpPresenter mSignUpPresenter;
+
+    private Realm mRealm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView, Vie
         username = (EditText) findViewById(R.id.inputLogin);
         password = (EditText) findViewById(R.id.inputPassword);
         ((Button)findViewById(R.id.btn_signup)).setOnClickListener(this);
-
+        mRealm = Realm.getInstance(this);
         mSignUpPresenter = new SignUpPresenterImpl();
     }
 
@@ -44,7 +48,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView, Vie
     @Override
     protected void onPause() {
         super.onPause();
-        mSignUpPresenter.unbindView();
+        mSignUpPresenter.unBindView();
+        mRealm.close();
     }
 
     @Override
@@ -74,6 +79,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView, Vie
 
     @Override
     public void onClick(View v) {
+        mRealm.beginTransaction();
         mSignUpPresenter.registration(username.getText().toString().trim(), password.getText().toString().trim());
     }
 

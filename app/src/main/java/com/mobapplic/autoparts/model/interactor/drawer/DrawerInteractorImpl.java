@@ -8,6 +8,7 @@ import com.mobapplic.autoparts.R;
 import com.mobapplic.autoparts.presenter.drawer.DrawerPresenter;
 import com.mobapplic.autoparts.view.ui.fragment.car.CarInfoFragment;
 import com.mobapplic.autoparts.view.ui.fragment.chat.ChatFragment;
+import com.mobapplic.autoparts.view.ui.fragment.history.HistoryFragment;
 
 public class DrawerInteractorImpl implements DrawerInteractor {
 
@@ -25,7 +26,7 @@ public class DrawerInteractorImpl implements DrawerInteractor {
                 listener.openFragment(CarInfoFragment.newInstance());
                 break;
             case R.id.menu_nav_history:
-                listener.openFragment(CarInfoFragment.newInstance());
+                listener.openFragment(HistoryFragment.newInstance());
                 break;
             case R.id.menu_nav_settings_apps:
                 listener.openSettingsApp();
