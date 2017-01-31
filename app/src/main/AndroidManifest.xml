@@ -22,7 +22,9 @@
         </activity>
         <activity android:name=".view.ui.activity.signup.SignUpActivity"
                   android:theme="@style/SignTheme">
-
+        </activity>
+        <activity android:name=".view.ui.activity.reset.ResetPassword"
+                  android:theme="@style/SignTheme">
         </activity>
         <activity android:name=".view.ui.activity.main.MainActivity"/>
     </application>
