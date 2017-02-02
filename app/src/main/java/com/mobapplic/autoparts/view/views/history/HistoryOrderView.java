@@ -1,7 +1,6 @@
 package com.mobapplic.autoparts.view.views.history;
 
 
-public interface HistoryView {
+public interface HistoryOrderView {
     void showOrders();
-    void showAuto();
 }
