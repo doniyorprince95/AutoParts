@@ -2,8 +2,7 @@ package com.mobapplic.autoparts.view.views.chat;
 
 
 public interface ChatView {
-    void sendMessage(String msg);
-    void showMessages();
+    void showMessages(String message);
 
     void closeChat();
 }

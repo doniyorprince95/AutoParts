@@ -6,6 +6,6 @@ import com.mobapplic.autoparts.view.views.chat.ChatView;
 
 public interface ChatPresenter extends BasePresenter<ChatView> {
     void onStart();
-    void onSend();
+    void onSend(String msg);
     void onRefresh();
 }

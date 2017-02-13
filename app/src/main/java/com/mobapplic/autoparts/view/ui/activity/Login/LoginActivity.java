@@ -9,12 +9,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.mobapplic.autoparts.view.ui.activity.main.MainActivity;
 import com.mobapplic.autoparts.R;
 import com.mobapplic.autoparts.presenter.login.LoginPresenter;
 import com.mobapplic.autoparts.presenter.login.LoginPresenterImpl;
+import com.mobapplic.autoparts.view.ui.activity.main.MainActivity;
 import com.mobapplic.autoparts.view.ui.activity.signup.SignUpActivity;
 import com.mobapplic.autoparts.view.views.login.LoginView;
+
+import io.realm.Realm;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginView, View.OnClickListener {
@@ -24,6 +26,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
     private EditText username;
     private EditText password;
     private LoginPresenter mLoginPresenter;
+
+    private Realm mRealm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
         signUp = (TextView) findViewById(R.id.signUp);
         signUp.setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
-
+        mRealm = Realm.getInstance(this);
         mLoginPresenter = new LoginPresenterImpl();
     }
 

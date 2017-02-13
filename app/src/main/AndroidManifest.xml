@@ -27,6 +27,7 @@
                   android:theme="@style/SignTheme">
         </activity>
         <activity android:name=".view.ui.activity.main.MainActivity"/>
+        <activity android:name=".view.ui.activity.chat.ChatActivity"/>
     </application>
 
 </manifest>
