@@ -3,6 +3,8 @@ package com.mobapplic.autoparts.model.repository.order;
 import com.mobapplic.autoparts.model.entity.order.Order;
 import com.mobapplic.autoparts.model.repository.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import io.realm.Realm;
@@ -21,7 +23,8 @@ public class OrderRepository implements Repository<Order> {
         mRealm.beginTransaction();
         Order o = mRealm.createObject(Order.class);
         o.setId(UUID.randomUUID().toString());
-        o.setOrder(o.getOrder());
+        o.setOrder(order.getOrder());
+        o.setPrice(order.getPrice());
         o.setDateOrder(order.getDateOrder());
         o.setStatus(order.getStatus());
         mRealm.commitTransaction();
@@ -49,7 +52,13 @@ public class OrderRepository implements Repository<Order> {
     }
 
     @Override
-    public RealmResults getAllObjectItem() {
+    public RealmResults<Order> getAllObjectItem() {
         return mRealm.where(Order.class).findAll();
+    }
+
+    public List<Order> getOrderList() {
+        List<Order> list = new ArrayList<>();
+        list.addAll(getAllObjectItem());
+        return list;
     }
 }

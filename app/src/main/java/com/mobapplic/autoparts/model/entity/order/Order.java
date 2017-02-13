@@ -8,6 +8,7 @@ public class Order extends RealmObject {
 
     @PrimaryKey
     private String id;
+    private int price;
     private long dateOrder;
     private String order;
     private String status;
@@ -15,8 +16,9 @@ public class Order extends RealmObject {
     public Order() {
     }
 
-    public Order(String id, long dateOrder, String order, OrderStatus status) {
+    public Order(String id, int price, long dateOrder, String order, OrderStatus status) {
         this.id = id;
+        this.price = price;
         this.dateOrder = dateOrder;
         this.order = order;
         this.status = status.toString();
@@ -28,6 +30,14 @@ public class Order extends RealmObject {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public long getDateOrder() {

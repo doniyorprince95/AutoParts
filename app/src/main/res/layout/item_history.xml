@@ -24,7 +24,7 @@
             android:layout_centerInParent="true"
             android:layout_toEndOf="@+id/history_price">
         <TextView
-            android:id="@+id/history_title"
+            android:id="@+id/history_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextOrder"

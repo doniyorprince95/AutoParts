@@ -21,6 +21,8 @@ import com.mobapplic.autoparts.view.ui.activity.settings.SettingsAppActivity;
 import com.mobapplic.autoparts.view.views.drawer.DrawerView;
 import com.mobapplic.autoparts.view.views.history.HistoryOrderView;
 
+import io.realm.Realm;
+
 import static android.R.attr.id;
 
 public class HistoryOrderFragment extends Fragment implements HistoryOrderView, DrawerView {
@@ -31,6 +33,7 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView, 
     HistoryAdapter mHistoryAdapter;
 
     HistoryOrderPresent mHistoryPresent;
+    private Realm mRealm;
 
     public static HistoryOrderFragment newInstance() {
         HistoryOrderFragment historyFragment = new HistoryOrderFragment();
@@ -43,7 +46,8 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView, 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
-        mHistoryPresent = new HistoryOrderPresentImpl();
+        mRealm = Realm.getDefaultInstance();
+        mHistoryPresent = new HistoryOrderPresentImpl(this);
         mHistoryPresent.bindView(this);
         return view;
     }
@@ -58,6 +62,7 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView, 
     public void onDestroyView() {
         super.onDestroyView();
         mHistoryPresent.unBindView();
+        mRealm.close();
     }
 
     private void init() {
@@ -65,14 +70,16 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView, 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mHistoryAdapter = new HistoryAdapter(getActivity());
+        mHistoryAdapter = new HistoryAdapter(getActivity(), mRealm);
         mRecyclerView.setAdapter(mHistoryAdapter);
         mHistoryPresent.loadOrders();
     }
 
     @Override
     public void showOrders() {
-        getFragmentManager().beginTransaction().replace(R.id.container, OrderFragment.newInstance(id)).addToBackStack(TAG).commit();
+        OrderFragment orderFragment = OrderFragment.newInstance(id);
+        setFragment(orderFragment);
+//        getFragmentManager().beginTransaction().replace(R.id.container, OrderFragment.newInstance(id)).addToBackStack(TAG).commit();
     }
 
     @Override
