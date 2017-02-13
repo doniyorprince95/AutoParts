@@ -23,6 +23,8 @@ import com.mobapplic.autoparts.view.ui.activity.login.LoginActivity;
 import com.mobapplic.autoparts.view.ui.activity.settings.SettingsAppActivity;
 import com.mobapplic.autoparts.view.views.main.MainView;
 
+import io.realm.Realm;
+
 public class MainActivity extends BaseActivity implements MainView,
         NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,12 +35,13 @@ public class MainActivity extends BaseActivity implements MainView,
 
     MainPresenter mMainPresenter;
     DrawerPresenter mDrawerPresenter;
+    Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mRealm = Realm.getDefaultInstance();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawer = (NavigationView) findViewById(R.id.navigation_drawer);
@@ -70,6 +73,12 @@ public class MainActivity extends BaseActivity implements MainView,
     protected void onPause() {
         super.onPause();
         mMainPresenter.unBindView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
     }
 
     @Override

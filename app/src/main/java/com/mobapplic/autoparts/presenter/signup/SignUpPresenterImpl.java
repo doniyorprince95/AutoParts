@@ -9,6 +9,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mobapplic.autoparts.model.interactor.signup.SignUpInteractor;
 import com.mobapplic.autoparts.view.views.signUp.SignUpView;
 
+import io.realm.Realm;
+
 import static android.content.ContentValues.TAG;
 
 public class SignUpPresenterImpl implements SignUpPresenter {
@@ -18,9 +20,9 @@ public class SignUpPresenterImpl implements SignUpPresenter {
     SignUpView mSignUpView;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    public SignUpPresenterImpl() {
+    public SignUpPresenterImpl(Realm realm) {
         mAuth = FirebaseAuth.getInstance();
-        mSignUpInteractor = new SignUpInteractor(mAuth);
+        mSignUpInteractor = new SignUpInteractor(mAuth, realm);
     }
 
     @Override

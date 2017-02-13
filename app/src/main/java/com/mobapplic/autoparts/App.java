@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 
 public class App extends Application {
 
@@ -22,5 +25,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+//        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder(this).build();
+        Realm.setDefaultConfiguration(config);
     }
 }

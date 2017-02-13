@@ -1,4 +1,4 @@
-package com.mobapplic.autoparts.model.car;
+package com.mobapplic.autoparts.model.entity.car;
 
 
 public enum CarBody {

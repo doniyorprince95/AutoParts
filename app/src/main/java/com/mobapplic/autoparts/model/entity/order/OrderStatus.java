@@ -1,4 +1,4 @@
-package com.mobapplic.autoparts.model.order;
+package com.mobapplic.autoparts.model.entity.order;
 
 
 public enum OrderStatus {

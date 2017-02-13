@@ -10,26 +10,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.mobapplic.autoparts.model.user.User;
+import com.mobapplic.autoparts.model.entity.user.User;
+import com.mobapplic.autoparts.model.repository.user.UserRepository;
 import com.mobapplic.autoparts.presenter.signup.SignUpPresenter;
 import com.mobapplic.autoparts.utils.secure.SecureUtils;
 
 import io.realm.Realm;
 
-import static com.mobapplic.autoparts.App.getContext;
-
 public class SignUpInteractor {
 
     private FirebaseAuth mAuth;
     private Realm mRealm;
+    UserRepository mUserRepository;
 
-    public SignUpInteractor(FirebaseAuth auth) {
+    public SignUpInteractor(FirebaseAuth auth, Realm realm) {
         mAuth = auth;
-        mRealm = Realm.getInstance(getContext());
+        mUserRepository = new UserRepository(realm);
     }
 
     public void signUp(final String username, final String password, final SignUpPresenter.SignUpListener signUpListener) {
-        mRealm.beginTransaction();
         mAuth.createUserWithEmailAndPassword(username, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -49,10 +48,10 @@ public class SignUpInteractor {
                             }
 
                         } else {
-                            User user = mRealm.createObject(User.class);
+                            User user = new User();
                             user.setUserName(username);
                             user.setPassword(SecureUtils.encrypt(password));
-                            mRealm.commitTransaction();
+                            mUserRepository.addObject(user);
                             signUpListener.onSuccess();
                         }
                     }

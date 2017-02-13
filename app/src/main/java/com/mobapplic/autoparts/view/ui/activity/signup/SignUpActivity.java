@@ -36,7 +36,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView, Vie
         password = (EditText) findViewById(R.id.inputPassword);
         ((Button)findViewById(R.id.btn_signup)).setOnClickListener(this);
         mRealm = Realm.getInstance(this);
-        mSignUpPresenter = new SignUpPresenterImpl();
+        mSignUpPresenter = new SignUpPresenterImpl(mRealm);
     }
 
     @Override
