@@ -7,5 +7,6 @@ public interface LoginView {
     void setPasswordError();
     void setPasswordLengthError();
     void navigateToHome();
+    void navigateToSignUp();
     void setError(String errorMsg);
 }

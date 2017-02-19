@@ -8,48 +8,51 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mobapplic.autoparts.App;
 import com.mobapplic.autoparts.R;
 import com.mobapplic.autoparts.model.interactor.login.LoginInteractor;
+import com.mobapplic.autoparts.utils.preference.AppPreference;
 import com.mobapplic.autoparts.view.views.login.LoginView;
+
+import io.realm.Realm;
 
 import static android.content.ContentValues.TAG;
 
 public class LoginPresenterImpl implements LoginPresenter {
 
-    private LoginView loginView;
+    private LoginView mLoginView;
     private LoginInteractor loginInteractor;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    public LoginPresenterImpl() {
+    public LoginPresenterImpl(Realm realm) {
         mAuth = FirebaseAuth.getInstance();
-        this.loginInteractor = new LoginInteractor(mAuth);
+        this.loginInteractor = new LoginInteractor(mAuth, realm);
     }
 
     @Override
     public void validateCredentials(final String username, final String password) {
-        if (loginView != null) {
-            loginView.showProgress();
+        if (mLoginView != null) {
+            mLoginView.showProgress();
         }
 
         loginInteractor.login(username, password, new OnLoginListener() {
             @Override
             public void onSuccess() {
-                loginView.hideProgress();
-                loginView.navigateToHome();
+                mLoginView.hideProgress();
+                mLoginView.navigateToHome();
             }
 
             @Override
             public void onError() {
-                loginView.hideProgress();
+                mLoginView.hideProgress();
                 if (username != null && username.isEmpty()) {
-                    loginView.setUsernameError();
+                    mLoginView.setUsernameError();
                 }
                 if (password != null && password.isEmpty()) {
-                    loginView.setPasswordError();
+                    mLoginView.setPasswordError();
                 }
                 if (password != null && password.length() < 6) {
-                    loginView.setPasswordLengthError();
+                    mLoginView.setPasswordLengthError();
                 } else {
-                    loginView.setError(App.getContext().getString(R.string.login_error));
+                    mLoginView.setError(App.getContext().getString(R.string.login_error));
                 }
             }
         });
@@ -57,7 +60,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     @Override
     public void unBindView() {
-        loginView = null;
+        mLoginView = null;
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
@@ -65,7 +68,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     @Override
     public void bindView(LoginView loginView) {
-        this.loginView = loginView;
+        mLoginView = loginView;
         mAuthListener  = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -76,10 +79,14 @@ public class LoginPresenterImpl implements LoginPresenter {
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
+                    mLoginView.navigateToSignUp();
                 }
             }
         };
         mAuth.addAuthStateListener(mAuthListener);
+        if(!AppPreference.isAuthorized(App.getContext())) {
+            mLoginView.navigateToSignUp();
+        }
     }
 
 

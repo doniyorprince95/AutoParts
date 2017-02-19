@@ -33,14 +33,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mRealm.init(this);
         progressBar = (ProgressBar) findViewById(R.id.progress);
         username = (EditText) findViewById(R.id.inputLogin);
         password = (EditText) findViewById(R.id.inputPassword);
         signUp = (TextView) findViewById(R.id.signUp);
         signUp.setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
-        mRealm = Realm.getInstance(this);
-        mLoginPresenter = new LoginPresenterImpl();
+        mRealm = Realm.getDefaultInstance();
+        mLoginPresenter = new LoginPresenterImpl(mRealm);
     }
 
     @Override
@@ -87,6 +88,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
     }
 
     @Override
+    public void navigateToSignUp() {
+        startActivity(new Intent(this, SignUpActivity.class));
+        finish();
+    }
+
+    @Override
     public void setError(String errorMsg) {
 
     }
@@ -97,8 +104,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
             mLoginPresenter.validateCredentials(username.getText().toString(), password.getText().toString());
         }
         if (v.getId() == R.id.signUp) {
-            startActivity(new Intent(this, SignUpActivity.class));
-            finish();
+            navigateToSignUp();
         }
     }
 }
