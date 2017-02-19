@@ -5,7 +5,6 @@ import com.mobapplic.autoparts.model.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -20,30 +19,23 @@ public class OrderRepository implements Repository<Order> {
 
     @Override
     public void addObject(Order order) {
-        mRealm.beginTransaction();
-        Order o = mRealm.createObject(Order.class);
-        o.setId(UUID.randomUUID().toString());
-        o.setOrder(order.getOrder());
-        o.setPrice(order.getPrice());
-        o.setDateOrder(order.getDateOrder());
-        o.setStatus(order.getStatus());
-        mRealm.commitTransaction();
+        Order o = new Order();
+        o.in(order);
+        mRealm.copyToRealmOrUpdate(o);
     }
 
     @Override
     public void deleteObjectByName(String name) {
         mRealm.beginTransaction();
         Order order = mRealm.where(Order.class).equalTo("order", name).findFirst();
-        order.removeFromRealm();
+        order.deleteFromRealm();
         mRealm.commitTransaction();
     }
 
     @Override
     public void deleteObjectByPosition(int position) {
-        mRealm.beginTransaction();
         RealmResults<Order> realmResults = mRealm.where(Order.class).findAll();
-        realmResults.remove(position);
-        mRealm.commitTransaction();
+        realmResults.deleteFromRealm(position);
     }
 
     @Override
@@ -54,6 +46,13 @@ public class OrderRepository implements Repository<Order> {
     @Override
     public RealmResults<Order> getAllObjectItem() {
         return mRealm.where(Order.class).findAll();
+    }
+
+    @Override
+    public void update(List<Order> orders) {
+        for (Order order : orders) {
+            addObject(order);
+        }
     }
 
     public List<Order> getOrderList() {

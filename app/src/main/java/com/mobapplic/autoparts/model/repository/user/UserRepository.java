@@ -4,7 +4,7 @@ package com.mobapplic.autoparts.model.repository.user;
 import com.mobapplic.autoparts.model.entity.user.User;
 import com.mobapplic.autoparts.model.repository.Repository;
 
-import java.util.UUID;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;
@@ -20,29 +20,24 @@ public class UserRepository implements Repository<User> {
 
     @Override
     public void addObject(User user) {
-        mRealm.beginTransaction();
-        User u = mRealm.createObject(User.class);
-        u.setId(UUID.randomUUID().toString());
-        u.setUserName(u.getUserName());
-        u.setPassword(u.getPassword());
-        mRealm.commitTransaction();
+        User u = new User();
+        u.in(user);
+        mRealm.copyToRealmOrUpdate(u);
     }
 
     @Override
     public void deleteObjectByName(String userName) {
         mRealm.beginTransaction();
         User user = mRealm.where(User.class).equalTo("userName", userName).findFirst();
-        user.removeFromRealm();
+        user.deleteFromRealm();
         mRealm.commitTransaction();
     }
 
     @Override
     public void deleteObjectByPosition(int position) {
-        mRealm.beginTransaction();
         RealmQuery query = mRealm.where(User.class);
         RealmResults results = query.findAll();
-        results.remove(position);
-        mRealm.commitTransaction();
+        results.deleteFromRealm(position);
     }
 
     @Override
@@ -54,6 +49,13 @@ public class UserRepository implements Repository<User> {
     public RealmResults getAllObjectItem() {
         RealmQuery query = mRealm.where(User.class);
         return query.findAll();
+    }
+
+    @Override
+    public void update(List<User> users) {
+        for (User user : users) {
+            addObject(user);
+        }
     }
 }
 
