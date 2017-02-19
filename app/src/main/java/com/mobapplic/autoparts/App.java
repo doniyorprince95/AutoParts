@@ -26,7 +26,7 @@ public class App extends Application {
         super.onCreate();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 //        Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder(this).build();
+        RealmConfiguration config = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(config);
     }
 }
