@@ -87,4 +87,26 @@ public class Car extends RealmObject {
     public void setVIN(String VIN) {
         this.VIN = VIN;
     }
+
+    public void in(Car car) {
+        this.id = car.getId();
+        this.mark = car.getMark();
+        this.model = car.getModel();
+        this.date = car.getDate();
+        this.engineCapacity = car.getEngineCapacity();
+        this.body = car.getBody().toString();
+        this.VIN = car.getVIN();
+    }
+
+    public Car out() {
+        Car car = new Car();
+        car.setId(this.getId());
+        car.setMark(this.getMark());
+        car.setModel(this.getModel());
+        car.setDate(this.getDate());
+        car.setEngineCapacity(this.getEngineCapacity());
+        car.setBody(this.getBody());
+        car.setVIN(this.getVIN());
+        return car;
+    }
 }

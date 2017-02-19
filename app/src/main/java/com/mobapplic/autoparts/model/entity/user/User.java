@@ -55,4 +55,20 @@ public class User extends RealmObject {
     public void setCar(Car car) {
         this.car = car;
     }
+
+    public void in(User user) {
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.password = user.getPassword();
+        this.car = user.getCar();
+    }
+
+    public User out() {
+        User user = new User();
+        user.setId(this.getId());
+        user.setUserName(this.getUserName());
+        user.setPassword(this.getPassword());
+        user.setCar(this.getCar());
+        return user;
+    }
 }

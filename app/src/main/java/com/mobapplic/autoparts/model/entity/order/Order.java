@@ -1,5 +1,7 @@
 package com.mobapplic.autoparts.model.entity.order;
 
+import java.util.UUID;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -62,5 +64,23 @@ public class Order extends RealmObject {
 
     public void setStatus(OrderStatus status) {
         this.status = status.toString();
+    }
+
+    public void in(Order order) {
+        this.id = UUID.randomUUID().toString();
+        this.order = order.getOrder();
+        this.price = order.getPrice();
+        this.dateOrder = order.getDateOrder();
+        this.status = order.getStatus().toString();
+    }
+
+    public Order out() {
+        Order order = new Order();
+        order.setId(this.getId());
+        order.setPrice(this.getPrice());
+        order.setStatus(this.getStatus());
+        order.setDateOrder(this.getDateOrder());
+        order.setOrder(this.getOrder());
+        return order;
     }
 }
