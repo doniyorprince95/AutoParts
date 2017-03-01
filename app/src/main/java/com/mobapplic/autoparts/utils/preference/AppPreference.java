@@ -9,6 +9,8 @@ import android.text.TextUtils;
 public class AppPreference {
 
     private static final String KEY_TOKEN = "key_token";
+    public static final String KEY_USER = "key_user";
+    public static final String KEY_PASS = "key_pass";
 
     private static void saveStringPref(Context context, String key, String value) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, value).apply();
@@ -28,5 +30,21 @@ public class AppPreference {
 
     public static boolean isAuthorized(Context context) {
         return !TextUtils.isEmpty(getKeyToken(context));
+    }
+
+    public static void setKeyUser(Context context, String userName) {
+        saveStringPref(context, KEY_USER, userName);
+    }
+
+    public static String getKeyUser(Context context) {
+        return loadStringPref(context, KEY_USER, null);
+    }
+
+    public static void setKeyPass(Context context, String password) {
+        saveStringPref(context, KEY_PASS, password);
+    }
+
+    public static String getKeyPass(Context context) {
+        return loadStringPref(context, KEY_PASS, null);
     }
 }

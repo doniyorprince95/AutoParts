@@ -20,11 +20,14 @@ import com.mobapplic.autoparts.presenter.chat.ChatPresenterImpl;
 import com.mobapplic.autoparts.view.adapters.chat.ChatAdapter;
 import com.mobapplic.autoparts.view.views.chat.ChatView;
 
+import io.realm.Realm;
+
 public class ChatFragment extends Fragment implements ChatView, TextView.OnEditorActionListener, View.OnClickListener {
 
     private ChatPresenter mChatPresenter;
     ChatAdapter mChatAdapter;
     RecyclerView mRecyclerView;
+    private Realm mRealm;
     EditText enterMsg;
     Button sendMsg;
 
@@ -39,6 +42,7 @@ public class ChatFragment extends Fragment implements ChatView, TextView.OnEdito
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mChatPresenter = new ChatPresenterImpl();
+        mRealm = Realm.getDefaultInstance();
         return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 
@@ -64,6 +68,7 @@ public class ChatFragment extends Fragment implements ChatView, TextView.OnEdito
     public void onDestroy() {
         super.onDestroy();
         mChatPresenter.unBindView();
+        mRealm.close();
     }
 
     private void sendMessage(String msg) {

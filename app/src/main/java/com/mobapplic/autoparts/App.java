@@ -25,7 +25,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-//        Realm.init(this);
+        Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(config);
     }

@@ -25,6 +25,7 @@ public class SignUpInteractor {
 
     public SignUpInteractor(FirebaseAuth auth, Realm realm) {
         mAuth = auth;
+        mRealm = realm;
         mUserRepository = new UserRepository(realm);
     }
 
@@ -51,7 +52,9 @@ public class SignUpInteractor {
                             User user = new User();
                             user.setUserName(username);
                             user.setPassword(SecureUtils.encrypt(password));
+                            mRealm.beginTransaction();
                             mUserRepository.addObject(user);
+                            mRealm.commitTransaction();
                             signUpListener.onSuccess();
                         }
                     }
