@@ -11,8 +11,6 @@ import com.mobapplic.autoparts.model.interactor.login.LoginInteractor;
 import com.mobapplic.autoparts.utils.preference.AppPreference;
 import com.mobapplic.autoparts.view.views.login.LoginView;
 
-import io.realm.Realm;
-
 import static android.content.ContentValues.TAG;
 
 public class LoginPresenterImpl implements LoginPresenter {
@@ -22,9 +20,9 @@ public class LoginPresenterImpl implements LoginPresenter {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    public LoginPresenterImpl(Realm realm) {
+    public LoginPresenterImpl() {
         mAuth = FirebaseAuth.getInstance();
-        this.loginInteractor = new LoginInteractor(mAuth, realm);
+        this.loginInteractor = new LoginInteractor(mAuth);
     }
 
     @Override
@@ -76,17 +74,17 @@ public class LoginPresenterImpl implements LoginPresenter {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    if (AppPreference.isAuthorized(App.getContext())) {
+                        AppPreference.setToken(App.getContext(), user.getUid());
+                    }
+                    mLoginView.navigateToHome();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    mLoginView.navigateToSignUp();
                 }
             }
         };
         mAuth.addAuthStateListener(mAuthListener);
-        if(!AppPreference.isAuthorized(App.getContext())) {
-            mLoginView.navigateToSignUp();
-        }
     }
 
 

@@ -6,6 +6,9 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.mobapplic.autoparts.App;
+import com.mobapplic.autoparts.model.entity.user.User;
+
 public class AppPreference {
 
     private static final String KEY_TOKEN = "key_token";
@@ -46,5 +49,19 @@ public class AppPreference {
 
     public static String getKeyPass(Context context) {
         return loadStringPref(context, KEY_PASS, null);
+    }
+
+    public static void setUserInfo(User u) {
+        setKeyUser(App.getContext(), u.getUserName());
+        setKeyPass(App.getContext(), u.getPassword());
+    }
+
+    private static void removePref(Context context, String key) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().remove(key).apply();
+    }
+
+    public static void removeAppData() {
+        removePref(App.getContext(), KEY_USER);
+        removePref(App.getContext(), KEY_PASS);
     }
 }

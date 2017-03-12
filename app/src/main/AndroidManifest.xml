@@ -30,6 +30,9 @@
         </activity>
         <activity android:name=".view.ui.activity.main.MainActivity"/>
         <activity android:name=".view.ui.activity.chat.ChatActivity"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="85ca3912a1185e5132dca55a4cf6e0ca8ea68ee9" />
     </application>
 
 </manifest>

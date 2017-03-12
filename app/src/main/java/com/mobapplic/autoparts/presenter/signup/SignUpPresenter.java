@@ -10,5 +10,6 @@ public interface SignUpPresenter extends BasePresenter<SignUpView> {
     interface SignUpListener {
         void onSuccess();
         void onError();
+        void onLogin();
     }
 }

@@ -21,12 +21,12 @@ public class SignUpInteractor {
 
     private FirebaseAuth mAuth;
     private Realm mRealm;
-    UserRepository mUserRepository;
+    private UserRepository mUserRepository;
 
-    public SignUpInteractor(FirebaseAuth auth, Realm realm) {
+    public SignUpInteractor(FirebaseAuth auth) {
         mAuth = auth;
-        mRealm = realm;
-        mUserRepository = new UserRepository(realm);
+        mRealm = Realm.getDefaultInstance();
+        mUserRepository = new UserRepository(mRealm);
     }
 
     public void signUp(final String username, final String password, final SignUpPresenter.SignUpListener signUpListener) {
@@ -59,5 +59,9 @@ public class SignUpInteractor {
                         }
                     }
                 });
+    }
+
+    public void signOut() {
+        mAuth.signOut();
     }
 }

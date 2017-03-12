@@ -4,13 +4,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mobapplic.autoparts.model.interactor.drawer.DrawerInteractorImpl;
+import com.mobapplic.autoparts.model.interactor.signup.SignUpInteractor;
 import com.mobapplic.autoparts.view.views.drawer.DrawerView;
 
 public class DrawerPresenterImpl implements DrawerPresenter, DrawerPresenter.DrawerListener {
 
-    DrawerInteractorImpl drawerInteractor;
-    DrawerView drawerView;
+    private DrawerInteractorImpl drawerInteractor;
+    private DrawerView drawerView;
+    private SignUpInteractor mSignUpInteractor;
 
     public DrawerPresenterImpl(DrawerView drawerView) {
         this.drawerView = drawerView;
@@ -24,6 +27,8 @@ public class DrawerPresenterImpl implements DrawerPresenter, DrawerPresenter.Dra
 
     @Override
     public void logOut() {
+        mSignUpInteractor = new SignUpInteractor(FirebaseAuth.getInstance());
+        mSignUpInteractor.signOut();
         drawerView.logOut();
     }
 
@@ -37,8 +42,4 @@ public class DrawerPresenterImpl implements DrawerPresenter, DrawerPresenter.Dra
         drawerView.setFragment(fragment);
     }
 
-    @Override
-    public void openSettingsApp() {
-        drawerView.showSettingsApp();
-    }
 }

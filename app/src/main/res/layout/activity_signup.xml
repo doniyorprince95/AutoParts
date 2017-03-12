@@ -92,6 +92,15 @@
                         android:paddingRight="16dp"
                         android:paddingTop="0dp"
                         android:text="@string/signUp"/>
+
+                    <TextView
+                        android:id="@+id/logIn"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/signup_logIn"
+                        android:gravity="center"
+                        android:textSize="16sp"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <ProgressBar

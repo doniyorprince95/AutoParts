@@ -10,7 +10,6 @@ public interface DrawerPresenter {
     interface DrawerListener {
         void openHome();
         void openFragment(Fragment fragment);
-        void openSettingsApp();
         void logOut();
     }
 }

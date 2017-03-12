@@ -6,23 +6,23 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.mobapplic.autoparts.App;
 import com.mobapplic.autoparts.model.interactor.signup.SignUpInteractor;
+import com.mobapplic.autoparts.utils.preference.AppPreference;
 import com.mobapplic.autoparts.view.views.signUp.SignUpView;
-
-import io.realm.Realm;
 
 import static android.content.ContentValues.TAG;
 
 public class SignUpPresenterImpl implements SignUpPresenter {
 
-    SignUpInteractor mSignUpInteractor;
+    private SignUpInteractor mSignUpInteractor;
     private FirebaseAuth mAuth;
-    SignUpView mSignUpView;
+    private SignUpView mSignUpView;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    public SignUpPresenterImpl(Realm realm) {
+    public SignUpPresenterImpl() {
         mAuth = FirebaseAuth.getInstance();
-        mSignUpInteractor = new SignUpInteractor(mAuth, realm);
+        mSignUpInteractor = new SignUpInteractor(mAuth);
     }
 
     @Override
@@ -35,6 +35,8 @@ public class SignUpPresenterImpl implements SignUpPresenter {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    AppPreference.setToken(App.getContext(), user.getUid());
+                    mSignUpView.navigateToHome();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -54,6 +56,14 @@ public class SignUpPresenterImpl implements SignUpPresenter {
 
     @Override
     public void registration(final String username, final String password) {
+        if (username.isEmpty()) {
+            mSignUpView.setUsernameError();
+            return;
+        }
+        if (password.isEmpty()) {
+            mSignUpView.setPasswordError();
+            return;
+        }
         if (mSignUpView != null) {
             mSignUpView.showProgress();
         }
@@ -70,14 +80,21 @@ public class SignUpPresenterImpl implements SignUpPresenter {
             @Override
             public void onError() {
                 mSignUpView.hideProgress();
-                if (username != null && username.isEmpty()) {
+                if (username.isEmpty()) {
                     mSignUpView.setUsernameError();
                 }
-                if (password != null && password.isEmpty()) {
+                if (password.isEmpty()) {
                     mSignUpView.setPasswordError();
                 }
-                if (password != null && password.length() < 6) {
+                if (password.length() < 6) {
                     mSignUpView.setPasswordLengthError();
+                }
+            }
+
+            @Override
+            public void onLogin() {
+                if (mSignUpView != null) {
+                    mSignUpView.navigateToLogin();
                 }
             }
         });

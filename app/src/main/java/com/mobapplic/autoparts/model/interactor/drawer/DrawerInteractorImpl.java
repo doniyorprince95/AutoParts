@@ -28,14 +28,9 @@ public class DrawerInteractorImpl implements DrawerInteractor {
             case R.id.menu_nav_history:
                 listener.openFragment(HistoryOrderFragment.newInstance());
                 break;
-            case R.id.menu_nav_settings_apps:
-                listener.openSettingsApp();
-                drawerLayout.closeDrawers();
-                break;
             case R.id.menu_nav_logout:
                 listener.logOut();
                 drawerLayout.closeDrawers();
-//                removeAppData();
                 break;
             default:
                 listener.openHome();

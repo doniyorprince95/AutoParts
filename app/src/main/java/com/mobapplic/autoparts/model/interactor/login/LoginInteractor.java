@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.mobapplic.autoparts.model.entity.user.User;
 import com.mobapplic.autoparts.model.repository.user.UserRepository;
 import com.mobapplic.autoparts.presenter.login.LoginPresenter;
+import com.mobapplic.autoparts.utils.preference.AppPreference;
 import com.mobapplic.autoparts.utils.secure.SecureUtils;
 
 import io.realm.Realm;
@@ -18,11 +19,12 @@ public class LoginInteractor {
 
     FirebaseAuth mAuth;
     UserRepository mUserRepository;
-    Realm mRealm;
+    private Realm mRealm;
 
-    public LoginInteractor(FirebaseAuth auth, Realm realm) {
+    public LoginInteractor(FirebaseAuth auth) {
         mAuth = auth;
-        mRealm = realm;
+        mRealm = Realm.getDefaultInstance();
+        mUserRepository = new UserRepository(mRealm);
     }
 
     public void login(final String user, final String pass, final LoginPresenter.OnLoginListener loginListener) {
@@ -37,6 +39,7 @@ public class LoginInteractor {
                             User u = new User();
                             u.setUserName(user);
                             u.setPassword(SecureUtils.encrypt(pass));
+                            AppPreference.setUserInfo(u);
                             mRealm.beginTransaction();
                             mUserRepository.addObject(u);
                             mRealm.commitTransaction();

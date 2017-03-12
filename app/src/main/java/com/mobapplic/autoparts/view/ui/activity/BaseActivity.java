@@ -20,7 +20,6 @@ import com.mobapplic.autoparts.presenter.drawer.DrawerPresenter;
 import com.mobapplic.autoparts.presenter.drawer.DrawerPresenterImpl;
 import com.mobapplic.autoparts.view.ui.activity.login.LoginActivity;
 import com.mobapplic.autoparts.view.ui.activity.main.MainActivity;
-import com.mobapplic.autoparts.view.ui.activity.settings.SettingsAppActivity;
 import com.mobapplic.autoparts.view.views.drawer.DrawerView;
 
 public class BaseActivity extends AppCompatActivity implements DrawerView, NavigationView.OnNavigationItemSelectedListener {
@@ -67,12 +66,6 @@ public class BaseActivity extends AppCompatActivity implements DrawerView, Navig
     @Override
     public void showHome() {
         startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
-
-    @Override
-    public void showSettingsApp() {
-        startActivity(new Intent(this, SettingsAppActivity.class));
         finish();
     }
 

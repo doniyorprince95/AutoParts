@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,14 +19,14 @@ import com.mobapplic.autoparts.R;
 import com.mobapplic.autoparts.presenter.drawer.DrawerPresenter;
 import com.mobapplic.autoparts.presenter.drawer.DrawerPresenterImpl;
 import com.mobapplic.autoparts.presenter.main.MainPresenter;
-import com.mobapplic.autoparts.view.ui.activity.BaseActivity;
+import com.mobapplic.autoparts.presenter.main.MainPresenterImpl;
 import com.mobapplic.autoparts.view.ui.activity.login.LoginActivity;
-import com.mobapplic.autoparts.view.ui.activity.settings.SettingsAppActivity;
+import com.mobapplic.autoparts.view.views.drawer.DrawerView;
 import com.mobapplic.autoparts.view.views.main.MainView;
 
 import io.realm.Realm;
 
-public class MainActivity extends BaseActivity implements MainView,
+public class MainActivity extends AppCompatActivity implements MainView, DrawerView,
         NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar mToolbar;
@@ -60,6 +61,8 @@ public class MainActivity extends BaseActivity implements MainView,
         };
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+
+        mMainPresenter = new MainPresenterImpl();
     }
 
     @Override
@@ -95,11 +98,6 @@ public class MainActivity extends BaseActivity implements MainView,
     @Override
     public void showHome() {
         Log.d("MainActivity", "showHome");
-    }
-
-    @Override
-    public void showSettingsApp() {
-        startActivity(new Intent(this, SettingsAppActivity.class));
     }
 
     @Override

@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mobapplic.autoparts.R;
 import com.mobapplic.autoparts.presenter.signup.SignUpPresenter;
 import com.mobapplic.autoparts.presenter.signup.SignUpPresenterImpl;
+import com.mobapplic.autoparts.view.ui.activity.login.LoginActivity;
 import com.mobapplic.autoparts.view.ui.activity.main.MainActivity;
 import com.mobapplic.autoparts.view.views.signUp.SignUpView;
 
@@ -20,6 +22,7 @@ import io.realm.Realm;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpView, View.OnClickListener {
 
+    private TextView logIn;
     private ProgressBar progressBar;
     private EditText username;
     private EditText password;
@@ -34,9 +37,11 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView, Vie
         progressBar = (ProgressBar) findViewById(R.id.progress);
         username = (EditText) findViewById(R.id.inputLogin);
         password = (EditText) findViewById(R.id.inputPassword);
+        logIn = (TextView) findViewById(R.id.logIn) ;
+        logIn.setOnClickListener(this);
         ((Button)findViewById(R.id.btn_signup)).setOnClickListener(this);
         mRealm = Realm.getDefaultInstance();
-        mSignUpPresenter = new SignUpPresenterImpl(mRealm);
+        mSignUpPresenter = new SignUpPresenterImpl();
     }
 
     @Override
@@ -79,13 +84,24 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView, Vie
 
     @Override
     public void onClick(View v) {
-        mRealm.beginTransaction();
-        mSignUpPresenter.registration(username.getText().toString().trim(), password.getText().toString().trim());
+        switch (v.getId()) {
+            case R.id.btn_signup:
+                mSignUpPresenter.registration(username.getText().toString().trim(), password.getText().toString().trim());
+                break;
+            case R.id.logIn:
+                navigateToLogin();
+        }
     }
 
     @Override
     public void navigateToHome() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void navigateToLogin() {
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 }

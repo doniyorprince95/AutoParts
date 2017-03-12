@@ -16,8 +16,6 @@ import com.mobapplic.autoparts.view.ui.activity.main.MainActivity;
 import com.mobapplic.autoparts.view.ui.activity.signup.SignUpActivity;
 import com.mobapplic.autoparts.view.views.login.LoginView;
 
-import io.realm.Realm;
-
 
 public class LoginActivity extends AppCompatActivity implements LoginView, View.OnClickListener {
 
@@ -27,21 +25,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
     private EditText password;
     private LoginPresenter mLoginPresenter;
 
-    private Realm mRealm;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mRealm.init(this);
         progressBar = (ProgressBar) findViewById(R.id.progress);
         username = (EditText) findViewById(R.id.inputLogin);
         password = (EditText) findViewById(R.id.inputPassword);
         signUp = (TextView) findViewById(R.id.signUp);
         signUp.setOnClickListener(this);
         findViewById(R.id.btn_login).setOnClickListener(this);
-        mRealm = Realm.getDefaultInstance();
-        mLoginPresenter = new LoginPresenterImpl(mRealm);
+        mLoginPresenter = new LoginPresenterImpl();
     }
 
     @Override
@@ -100,11 +94,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView, View.
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_login) {
-            mLoginPresenter.validateCredentials(username.getText().toString(), password.getText().toString());
-        }
-        if (v.getId() == R.id.signUp) {
-            navigateToSignUp();
+        switch (v.getId()) {
+            case R.id.btn_login:
+                mLoginPresenter.validateCredentials(username.getText().toString(), password.getText().toString());
+                break;
+            case R.id.signUp:
+                navigateToSignUp();
+//                break;
         }
     }
 }

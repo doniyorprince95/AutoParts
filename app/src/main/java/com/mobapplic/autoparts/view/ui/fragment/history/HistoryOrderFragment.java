@@ -17,7 +17,6 @@ import com.mobapplic.autoparts.presenter.history.HistoryOrderPresentImpl;
 import com.mobapplic.autoparts.view.adapters.history.HistoryAdapter;
 import com.mobapplic.autoparts.view.ui.activity.login.LoginActivity;
 import com.mobapplic.autoparts.view.ui.activity.main.MainActivity;
-import com.mobapplic.autoparts.view.ui.activity.settings.SettingsAppActivity;
 import com.mobapplic.autoparts.view.views.drawer.DrawerView;
 import com.mobapplic.autoparts.view.views.history.HistoryOrderView;
 
@@ -85,12 +84,6 @@ public class HistoryOrderFragment extends Fragment implements HistoryOrderView, 
     @Override
     public void showHome() {
         startActivity(new Intent(getActivity(), MainActivity.class));
-        getActivity().finish();
-    }
-
-    @Override
-    public void showSettingsApp() {
-        startActivity(new Intent(getActivity(), SettingsAppActivity.class));
         getActivity().finish();
     }
 
