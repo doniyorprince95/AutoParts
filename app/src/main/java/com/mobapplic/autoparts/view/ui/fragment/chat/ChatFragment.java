@@ -99,6 +99,7 @@ public class ChatFragment extends Fragment implements ChatView, TextView.OnEdito
         switch (v.getId()) {
             case R.id.send:
                 sendMessage(enterMsg.getText().toString().trim());
+                enterMsg.setText("");
                 break;
         }
     }

@@ -24,13 +24,13 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
         View view;
         switch (viewType) {
             case 1:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_left, parent, false);
-                break;
-            case 2:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_right, parent, false);
                 break;
-            default:
+            case 2:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_left, parent, false);
+                break;
+            default:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_right, parent, false);
                 break;
         }
         return new ChatHolder(view);
@@ -44,6 +44,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
 
     public void add(String message) {
         this.messages.add(message);
+        notifyDataSetChanged();
     }
 
     public void update(List<String> messages) {
